@@ -4,14 +4,12 @@
 
 {% block head %}
     
-{% block javascripts %}
-    {% javascripts '@bookStoreBundle/Resources/public/js/*' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
+    {% block javascripts %}
+        {% javascripts '@bookStoreBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
 
-    
-    
 {% endblock %}        
 
 {% block body %}
@@ -22,17 +20,8 @@
        {{form_widget(form)}}
        {{form_end(form)}}
     {% endblock %}  
-    {# 
-    {% block list %}
-        lista książek:
-        <br>
-        {{dump(allBooks)}}
-        {% for book in allBooks %}
-            Tytuł: {{book.title}}, autor: {{book.Author}}, liczba stron: {{book.page}}, rok publikacji: {{book.publishYear}}
-            <br>
-        {% endfor %}    
-        
-    {% endblock %}    
-    #}
     
+    <div id="Book_list">
+        
+    </div>
 {% endblock %}

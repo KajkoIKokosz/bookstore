@@ -19,7 +19,6 @@ class BookController extends Controller
     {   
         $newBook = new Book();
         $form = $this->createFormBuilder($newBook)
-    //            ->setAction($this->generateUrl('save_to_db'))
                 ->add('Author', 'text')
                 ->add('title', 'text')
                 ->add('page', 'text')
@@ -35,15 +34,7 @@ class BookController extends Controller
             $em->persist($task);
             $em->flush();
         }
-        
-//        if( $this->getRequest()->isMethod('GET') ) {
-//            $repository = $this->getDoctrine()->getRepository('bookStoreBundle:Book');
-//            $allBooks = $repository->findAll();
-//            
-//            $serializedData = json_encode($allBooks);
-//            echo $serializedData;
-//        }
-            
+         
         return $this->render('bookStoreBundle:Book:create.html.twig', array(
             'form'=>$form->createView(),
             //'allBooks'=>$allBooks
@@ -82,7 +73,6 @@ class BookController extends Controller
         ));
     }
     
-
     /**
      * @Route("/loadAll")
      */
@@ -92,7 +82,5 @@ class BookController extends Controller
             // ...
         ));
     }
-
-   
 
 }
