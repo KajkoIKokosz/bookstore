@@ -9,29 +9,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BookController extends Controller
 {
+    
     /**
      * @Route("/create")
      */
-    public function createAction()
+    public function createAction(Request $request)
     {   
         $newBook = new Book();
         $form = $this->createFormBuilder($newBook)
-                ->setAction($this->generateUrl('save_to_db'))
+    //            ->setAction($this->generateUrl('save_to_db'))
                 ->add('Author', 'text')
                 ->add('title', 'text')
                 ->add('page', 'text')
                 ->add('publishYear', 'text')
                 ->add('save', 'submit', array ('label'=>'Create Task'))
-                ->getForm();
         
-        if ($form->isSubmitted() && $form->isValid()) {
+                ->getForm();
+        $form->handleRequest($request);
+        
+        if ( $form->isSubmitted() ) {
             $task = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
         }
-        
-        return $this->redirectToRoute('task_success');
         
         return $this->render('bookStoreBundle:Book:create.html.twig', array(
             'form'=>$form->createView()
@@ -39,28 +40,25 @@ class BookController extends Controller
     }
     
     /**
-     * @Route("/saveToDb/{form}", name="save_to_db")
+     * @Route("/load/{id}")
      */
-    public function handleFormData(Request $request, $form) {
-        $form->handleRequest($request);
-        
-        if( $form->isSubmitted() ) {
-            $post = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
-            $em->flush();
-            
-            return $this->render('bookStoreBundle:Book:create.html.twig', array(
-            ));
-        }
+    public function loadAction($id)
+    {
+        $repository = $this->getDoctrine()->getRepository('bookStoreBundle:Book');
+        $post = $repository->find($id);
+        return $this->render('bookStoreBundle:Book:load.html.twig', array(
+            'book'=>$post
+        ));
     }
+    
+    
 
     /**
-     * @Route("/showAll")
+     * @Route("/loadAll")
      */
-    public function showAllAction()
+    public function loadAllAction()
     {
-        return $this->render('bookStoreBundle:Book:show_all.html.twig', array(
+        return $this->render('bookStoreBundle:Book:load_all.html.twig', array(
             // ...
         ));
     }

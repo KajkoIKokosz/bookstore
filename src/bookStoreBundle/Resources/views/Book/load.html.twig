@@ -1,0 +1,17 @@
+
+{% block title %}bookStoreBundle:Book:showAll{% endblock %}
+
+
+{% block body %}
+    <h3>Tytuł:</h3>
+    {{book.title}}
+    <br>
+    <h3>Autor:</h3>
+    {{book.Author}}
+    <br>
+    <h3>Ilość stron:</h3>
+    {{book.page}}
+    <br>
+    <h3>Rok publikacji:</h3>
+    {{book.publishYear}}
+{% endblock %}
