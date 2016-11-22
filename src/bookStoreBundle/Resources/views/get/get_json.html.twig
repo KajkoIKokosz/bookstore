@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+ 
+
+{% block title %}bookStoreBundle:get:getJson{% endblock %}
+{% block javascripts %}
+    {% javascripts '@bookStoreBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block body %}
+
+<h1 id="test">Welcome to the get:getJson page</h1>
+{% endblock %}
