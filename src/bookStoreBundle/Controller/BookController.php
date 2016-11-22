@@ -4,6 +4,7 @@ namespace bookStoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use bookStoreBundle\Entity\Book;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,23 +35,34 @@ class BookController extends Controller
             $em->flush();
         }
         
+//        if( $this->getRequest()->isMethod('GET') ) {
+//            $repository = $this->getDoctrine()->getRepository('bookStoreBundle:Book');
+//            $allBooks = $repository->findAll();
+//            
+//            $serializedData = json_encode($allBooks);
+//            echo $serializedData;
+//        }
+            
         return $this->render('bookStoreBundle:Book:create.html.twig', array(
             'form'=>$form->createView(),
-            'allBooks'=>$allBooks
+            //'allBooks'=>$allBooks
         ));
     }
     
     /**
-     * @Route("/get/")
+     * @Route("/getJson/")
      * @Method({"GET"})
      */
     
-    public function GetAction() {
+    public function GetJsonAction() {
         $repository = $this->getDoctrine()->getRepository('bookStoreBundle:Book');
         $allBooks = $repository->findAll();
 
         $serializedData = json_encode($allBooks);
-        return $this->render('bookStoreBundle:Get:load.html.twig', array(
+        
+        //return $this->json(array('username' => 'jane.doe'));
+        
+        return $this->render('bookStoreBundle:Get:getJson.html.twig', array(
             'serializedData'=> $serializedData
         ));
         
@@ -67,7 +79,6 @@ class BookController extends Controller
             'book'=>$post
         ));
     }
-    
     
 
     /**

@@ -3,8 +3,15 @@
 {% block title %}bookStoreBundle:Book:create{% endblock %}
 
 {% block head %}
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('js/readUrl.js') }}"></script>
+    
+{% block javascripts %}
+    {% javascripts '@bookStoreBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+    
+    
 {% endblock %}        
 
 {% block body %}
@@ -15,6 +22,7 @@
        {{form_widget(form)}}
        {{form_end(form)}}
     {% endblock %}  
+    {# 
     {% block list %}
         lista książek:
         <br>
@@ -25,5 +33,6 @@
         {% endfor %}    
         
     {% endblock %}    
+    #}
     
 {% endblock %}
