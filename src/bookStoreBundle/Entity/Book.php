@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="bookStoreBundle\Repository\BookRepository")
  */
-class Book
+class Book implements \JsonSerializable
 {
     /**
      * @var int
@@ -157,4 +157,14 @@ class Book
     {
         return $this->publishYear;
     }
+
+    public function jsonSerialize() {
+        return array(
+            'title'=>  $this->title,
+            'author'=> $this->author,
+            'pages'=> $this->page,
+            'publishYear'=> $this->publishYear
+        );
+    }
+
 }

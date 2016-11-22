@@ -7,11 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use bookStoreBundle\Entity\Book;
 use Symfony\Component\HttpFoundation\Request;
 
-class BookController extends Controller
+class BookController extends Controller 
 {
     
     /**
-     * @Route("/create")
+     * @Route("/main")
      */
     public function createAction(Request $request)
     {   
@@ -35,8 +35,25 @@ class BookController extends Controller
         }
         
         return $this->render('bookStoreBundle:Book:create.html.twig', array(
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
+            'allBooks'=>$allBooks
         ));
+    }
+    
+    /**
+     * @Route("/get/")
+     * @Method({"GET"})
+     */
+    
+    public function GetAction() {
+        $repository = $this->getDoctrine()->getRepository('bookStoreBundle:Book');
+        $allBooks = $repository->findAll();
+
+        $serializedData = json_encode($allBooks);
+        return $this->render('bookStoreBundle:Get:load.html.twig', array(
+            'serializedData'=> $serializedData
+        ));
+        
     }
     
     /**
@@ -62,5 +79,7 @@ class BookController extends Controller
             // ...
         ));
     }
+
+   
 
 }
