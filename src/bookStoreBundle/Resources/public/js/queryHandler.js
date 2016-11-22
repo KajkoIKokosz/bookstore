@@ -5,10 +5,10 @@ $('documet').ready(function(){
         type:"GET",
         dataType:"json",
         success:function( json ){
-            console.log("jest ok");
+            console.log("json załadowany");
         },
         error: function(  ) {
-            console.log("dupa");
+            console.log("json niezaładowany");
         }
         //complete: function( xhr, status ) {}
         

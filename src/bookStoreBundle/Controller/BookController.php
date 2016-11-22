@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use bookStoreBundle\Entity\Book;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller 
 {
@@ -58,13 +59,14 @@ class BookController extends Controller
         $repository = $this->getDoctrine()->getRepository('bookStoreBundle:Book');
         $allBooks = $repository->findAll();
 
+        $response = new Response();
         $serializedData = json_encode($allBooks);
-        
-        //return $this->json(array('username' => 'jane.doe'));
-        
-        return $this->render('bookStoreBundle:Get:getJson.html.twig', array(
-            'serializedData'=> $serializedData
+        $response->setContent(json_encode(
+                $allBooks
         ));
+        $response->headers->set('Content-Type', 'application/json');
+        
+        return $response;
         
     }
     
